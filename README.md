@@ -103,4 +103,9 @@ Xbox Controller → ESP32 TX ─(RF)─→ ESP32 RX → Flight Controller → Mo
 
 ---
 
-**Start with:** Read [SYSTEM_DIAGRAM.md](SYSTEM_DIAGRAM.md) and [docs/FOR_BENJAMIN.md](docs/FOR_BENJAMIN.md)
+## 🚀 START HERE
+
+1. **[MASTER_BUILD_GUIDE.md](MASTER_BUILD_GUIDE.md)** ← Read this first! (Complete sourcing, assembly, testing)
+2. **[SUB_250G_FPV_BUILD.md](SUB_250G_FPV_BUILD.md)** — Detailed sub-250g strategy
+3. **[SYSTEM_DIAGRAM.md](SYSTEM_DIAGRAM.md)** — How everything connects
+4. **[docs/FOR_BENJAMIN.md](docs/FOR_BENJAMIN.md)** — Benjamin's beginner guide
