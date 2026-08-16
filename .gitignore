@@ -1,0 +1,32 @@
+# CAD files
+*.bak
+*.log
+*~
+.~*
+
+# 3D printing slices
+*.gcode
+*.ufp
+
+# Dependencies & build
+node_modules/
+build/
+dist/
+*.o
+*.a
+*.so
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+
+# Electronics
+*.kicad_pcb-bak
+*.kicad_sch-bak
+
+# Firmware
+.pio/
+.platformio/
