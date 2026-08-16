@@ -20,10 +20,15 @@ Two ESP32 boards run firmware that talk to each other via radio (nRF24L01 module
    - Gets values every ~20ms (50 times per second)
 
 2. **Prepares the Data**
-   - Takes 4 stick values (throttle, pitch, roll, yaw)
-   - Scales them to numbers the flight controller understands
-   - Packs them into a small message (8-16 bytes)
-   - Example: `[127, 200, 50, 150]` means throttle=127, pitch=200, etc.
+   - Takes 4 stick values (throttle, pitch, roll, yaw) from Xbox controller
+   - **Scales them to limit aggressive motor response**
+     - Raw range: 0-255 (full power)
+     - Limited range: 0-200 (80% max power)
+     - This tames the 1104 7200 KV aggressive motors
+   - Converts to numbers the flight controller understands
+   - Packs them into a small message (4 bytes per stick)
+   - Example: Xbox `[255, 127, 127, 127]` → limited `[200, 127, 127, 127]`
+   - Benjamin can adjust limit in code (200, 210, 220, etc.) for tuning
 
 3. **Sends via Radio**
    - Uses nRF24L01 to broadcast the stick data

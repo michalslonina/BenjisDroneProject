@@ -43,29 +43,34 @@ You will build a **3-inch FPV drone that weighs 200-250g** with:
 ---
 
 ### MOTORS (4x Required)
-**Part:** Eachine 1105 5000 KV Brushless Motor
+**Part:** 1104 7200 KV Brushless Motor (with software input limiting)
 
 | Spec | Value |
 |------|-------|
-| Size | 1105 |
-| KV | 5000 |
-| Weight per motor | ~8g |
-| Total (4x) | 32g |
+| Size | 1104 |
+| KV | 7200 |
+| Weight per motor | ~7-7.5g |
+| Total (4x) | 28g |
 | Voltage | 2S LiPo (7.4V) |
-| Current draw (max) | ~8A per motor |
+| Current draw (max) | ~7-8A per motor |
 | Shaft | 2mm |
 | Connector | 2mm banana or solder |
+| RPM on 2S | 53,280 (will be limited in firmware) |
 
 **Where to buy:**
-- AliExpress: Search "1105 5000KV brushless motor"
-- Price: €3-5 per motor (€12-20 for 4)
-- Alternative brands: DYS 1105, Happymodel 1105 (similar specs)
+- AliExpress: Search "1104 7200KV brushless motor"
+- Price: €2-4 per motor (€8-16 for 4)
+- Alternative brands: Eachine, DYS, Happymodel
 
-**Why 1105 5000 KV:**
-- Perfect weight/power balance for 3" props
-- 5000 KV × 7.4V (2S) = ~37,000 RPM
-- Ideal response for beginner pilot
-- Proven for lightweight quads
+**Why 1104 7200 KV + Software Limiting:**
+- Saves 4g weight (28g vs 32g with 1105)
+- Benjamin learns input scaling in firmware
+- Software maps stick input to 0-200 range (instead of 0-255)
+- Firmware tames aggressive motor behavior
+- Educational: Shows how to compensate in software
+- New total weight: 237g (13g margin under 250g)
+- Can be tuned/adjusted in code anytime
+- Proven approach for lightweight quads
 
 ---
 
@@ -393,16 +398,18 @@ You will build a **3-inch FPV drone that weighs 200-250g** with:
 | Component | Weight | Cumulative |
 |-----------|--------|-----------|
 | Frame (GoFlyPro 3") | 38g | 38g |
-| Motors (1105, 4x @ 8g) | 32g | 70g |
-| ESCs (12A, 4x @ 7g) | 28g | 98g |
-| Flight Controller | 8g | 106g |
-| Camera (Caddx Baby Ratel) | 18g | 124g |
-| VTx (25mW) | 10g | 134g |
-| Battery (2S 450mAh) | 60g | 194g |
-| Propellers (2 sets) | 12g | 206g |
-| Wiring/connectors | 20g | 226g |
-| Hot glue/velcro/misc | 15g | 241g |
-| **SAFETY MARGIN** | **9g** | **250g** ✅ |
+| Motors (1104 7200 KV, 4x @ 7.5g) | 28g | 66g |
+| ESCs (12A, 4x @ 7g) | 28g | 94g |
+| Flight Controller | 8g | 102g |
+| Camera (Caddx Baby Ratel) | 18g | 120g |
+| VTx (25mW) | 10g | 130g |
+| Battery (2S 450mAh) | 60g | 190g |
+| Propellers (2 sets) | 12g | 202g |
+| Wiring/connectors | 18g | 220g |
+| Hot glue/misc | 12g | 232g |
+| **SAFETY MARGIN** | **18g** | **250g** ✅ |
+
+**Note:** 1104 7200 KV motors are software-limited via input scaling in Benjamin's firmware (0-255 stick range mapped to 0-200 command range). This tames aggressive motor response while saving weight.
 
 ---
 

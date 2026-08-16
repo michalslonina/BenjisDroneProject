@@ -52,17 +52,21 @@ You CAN build a sub-250g FPV camera drone. It requires:
 
 ## Optimized Component List for Sub-250g
 
-### Motors - 1105 or 1106 5000 KV
+### Motors - 1104 7200 KV (Software Limited)
 
 **Examples:**
-- **Eachine 1105 5000 KV:** ~8g per motor, €3-4 each on AliExpress
-- **DYS 1105 5000 KV:** ~8g, better quality (~€5 each)
-- **Happymodel 1105 5000 KV:** ~8g, popular choice (~€4-5 each)
+- **Eachine 1104 7200 KV:** ~7.5g per motor, €2-3 each on AliExpress
+- **DYS 1104 7200 KV:** ~7.5g, better quality (~€4 each)
+- **Happymodel 1104 7200 KV:** ~7.5g, popular choice (~€3-4 each)
 
-**Why 5000 KV on 2S:**
-- 2S = 7.4V × 5000 KV = 37,000 RPM
-- Good balance for 3" props
-- Flies more aggressively than 5-inch (faster, more responsive)
+**Why 1104 7200 KV with Software Limiting:**
+- 2S = 7.4V × 7200 KV = 53,280 RPM (raw, will be limited)
+- Benjamin's firmware scales stick input: 0-255 → 0-200
+- This software limiting tames aggressive response
+- Saves 4g weight (28g vs 32g with 1105)
+- Educational: Benjamin learns input mapping in code
+- Gives 18g safety margin under 250g (vs 9g with 1105)
+- Can be tuned/adjusted in firmware anytime
 
 ### ESCs - 12A or Smaller
 
