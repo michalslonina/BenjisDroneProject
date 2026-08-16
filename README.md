@@ -45,8 +45,11 @@ Xbox Controller → ESP32 TX ─(RF)─→ ESP32 RX → Flight Controller → Mo
 - **Flight:** F4 Flight Controller (Betaflight compatible)
 - **Motors:** 4x brushless 2300 KV + ESCs
 - **FPV:** 1000 TVL camera + 200mW VTx + USB receiver
-- **Frame:** 3D printed (PLA/PETG)
-- **Power:** 3S LiPo battery
+- **Frame:** TBS Source One (3D printed PETG, 15% infill, ~95-100g)
+- **Power:** 3S 1000mAh LiPo battery
+- **Total Weight:** ~350-400g (practical minimum with full FPV system)
+
+**Note:** While target was <250g, this is unrealistic with FPV video. See [WEIGHT_BUDGET.md](WEIGHT_BUDGET.md) for detailed analysis.
 
 ## Project Timeline
 

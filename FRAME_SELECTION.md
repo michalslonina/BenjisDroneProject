@@ -19,7 +19,46 @@ We're building a **5-inch quad** because:
 
 ## Recommended Open-Source Frames
 
-### Option 1: Flywoo Freestyle 5" (Recommended for Beginners)
+### Option 1: TBS Source One (BEST - Highly Recommended!)
+
+**Where to get CAD:**
+- **GitHub:** https://github.com/tbs-trappy/source_one (official open-source)
+- **Printables:** [TBS Source One Frame](https://www.printables.com/model/986512-open-source-fpv-drone-frame-project-initiated-by-t)
+- Multiple community versions available
+- Well-documented on GitHub with full CAD in STEP format
+
+**Advantages:**
+- ✅ Industry-standard design (proven by professionals)
+- ✅ Excellent documentation (multiple languages)
+- ✅ Very modular (easy to repair/modify)
+- ✅ Active community support on GitHub
+- ✅ Tons of YouTube tutorials
+- ✅ Strong but lightweight
+- ✅ Great for learning (clear design principles)
+
+**Frame Specifications:**
+- **Wheelbase:** 5 inches (210mm diagonal)
+- **Frame weight:** ~95-100g (PETG, 15% infill)
+- **Total drone weight:** ~350-400g (with all electronics)
+- **Material:** PETG recommended (stronger than PLA)
+
+**Print Requirements:**
+- Main chassis: 1x
+- Side plates: 2x
+- Arms: 4x (+ 4 spares recommended)
+- Camera mount: 1x
+- Battery holder: 1x
+- **Total print time:** ~45-55 hours (parallelizable across 3 printers)
+
+**Why TBS Source One is best:**
+1. **Professional design** — Used by racers/professionals worldwide
+2. **Open-source community** — Many people have solved problems you'll hit
+3. **Learning value** — Well-designed for understanding frame engineering
+4. **Future proof** — Compatible with many aftermarket parts
+
+---
+
+### Option 2: Flywoo Freestyle 5" (Good Alternative)
 
 **Where to get CAD:**
 - Search: "Flywoo Freestyle" on Printables or Thingiverse
