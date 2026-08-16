@@ -1,6 +1,12 @@
 # Bill of Materials - FPV Drone Project
 
-**Budget:** ~100-120 EUR | **Target availability:** AliExpress + local hobby shops
+**Two Build Options:**
+1. **Sub-250g FPV (Recommended):** 3" frame, lightweight electronics, ~€65-100, 200-250g total
+2. **Standard 5" FPV:** Larger frame, more stable, ~€100-130, 350-400g total
+
+⭐ **For Benjamin:** Start with **[SUB_250G_FPV_BUILD.md](SUB_250G_FPV_BUILD.md)** — this achieves your 250g target WITH full FPV camera!
+
+**Budget:** ~65-100 EUR (sub-250g) or ~100-120 EUR (standard 5") | **Target availability:** AliExpress + local hobby shops
 
 ## Electronics Components
 

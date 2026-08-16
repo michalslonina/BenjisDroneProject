@@ -39,17 +39,29 @@ Xbox Controller → ESP32 TX ─(RF)─→ ESP32 RX → Flight Controller → Mo
                                   FPV Camera → VTx ─(RF)─→ Phone (Goggles)
 ```
 
-## Component Stack
+## Build Options
 
-- **Control:** 2x ESP32 + nRF24L01 RF modules (custom wireless protocol)
-- **Flight:** F4 Flight Controller (Betaflight compatible)
-- **Motors:** 4x brushless 2300 KV + ESCs
-- **FPV:** 1000 TVL camera + 200mW VTx + USB receiver
-- **Frame:** TBS Source One (3D printed PETG, 15% infill, ~95-100g)
-- **Power:** 3S 1000mAh LiPo battery
-- **Total Weight:** ~350-400g (practical minimum with full FPV system)
+### ⭐ Option 1: Sub-250g FPV (RECOMMENDED)
+- **Frame:** GoFlyPro 3" (38g, perfect for 250g limit)
+- **Motors:** 1105 5000 KV lightweight (8g each)
+- **Battery:** 2S 450mAh 45C (60g, ~4-5 min flight time)
+- **Camera:** Caddx Baby Ratel (18g, 800 TVL)
+- **VTx:** 25mW compact (10g, ~200m range)
+- **Total Weight:** 200-250g ✅
+- **Cost:** ~€65-100
+- **Flight:** Agile, fun, good for indoors
+- **See:** [SUB_250G_FPV_BUILD.md](SUB_250G_FPV_BUILD.md)
 
-**Note:** While target was <250g, this is unrealistic with FPV video. See [WEIGHT_BUDGET.md](WEIGHT_BUDGET.md) for detailed analysis.
+### Option 2: Standard 5" FPV
+- **Frame:** TBS Source One (95-100g)
+- **Motors:** 2300 KV brushless
+- **Battery:** 3S 1000mAh
+- **Camera:** 1000 TVL
+- **VTx:** 200mW
+- **Total Weight:** 350-400g
+- **Cost:** ~€100-130
+- **Flight:** Stable, longer flight time
+- **See:** [WEIGHT_BUDGET.md](WEIGHT_BUDGET.md)
 
 ## Project Timeline
 
