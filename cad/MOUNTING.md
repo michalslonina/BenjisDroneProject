@@ -14,6 +14,36 @@ real frame + camera mount STLs with placeholder geometry (motors, propellers,
 FC/PDB/VTX stack, battery, camera body) so you can see the full layout in one
 file. Open it in OpenSCAD. Rendering it is what caught a real problem below.
 
+## Orthogonal views (color-coded by component)
+
+| View | File | Shows |
+|---|---|---|
+| Top | `cad/assembly/assembly_top.png` | Prop clearance, overall footprint |
+| Front | `cad/assembly/assembly_front.png` | Left-right motor spread, stack height |
+| Side | `cad/assembly/assembly_side.png` | Front-to-back length, battery overhang, camera tilt |
+
+Color legend: frame = gold, motors = black, propellers = translucent blue,
+PDB = firebrick red, FC = forest green, VTX = navy, standoffs = silver,
+battery = orange, camera mount = dark gray.
+
+**Fit check result:** rendering these views caught two real problems, both fixed:
+
+1. The camera mount's first two placements (3mm past the motor center, then
+   20mm past the frame edge) both still overlapped the arm and/or the FC stack
+   standoffs — visible directly in the top and side renders as overlapping
+   geometry. The mount's actual shape (an asymmetric clamp) reaches further
+   toward the frame than its bounding box suggested. Fixed by pushing it 30mm
+   past the frame edge, re-rendering, and zooming into the contact point in
+   OpenSCAD until a visible gap confirmed clearance.
+2. A low-res top-view thumbnail made the camera mount look like it was
+   overlapping the propeller disc — checked with the actual numbers (mount
+   footprint vs. prop swept radius) and a zoomed re-render: there's ~10-30mm
+   of real clearance. False alarm, but worth checking numerically rather than
+   trusting a small preview image.
+
+Everything else (battery vs. FC stack, battery vs. motors, stack vs. frame)
+had comfortable clearance on the first pass.
+
 ## Flight Controller / PDB / VTx — built into the frame
 
 The F4V3S Plus bundle is sold as a "flytower" stack: FC, PDB, and VTx are separate

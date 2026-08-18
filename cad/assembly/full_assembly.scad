@@ -26,6 +26,7 @@ batteryZoneCenterY = 13;
 body_shift_y = -(quadLength/2 + mountRadius);
 fc_pad_world = [quadWidth/2, (quadLength+2*mountRadius)/2 + body_shift_y];
 battery_zone_world = [quadWidth/2, batteryZoneCenterY + body_shift_y];
+frame_edge_y = (quadLength+2*mountRadius) + body_shift_y; // world Y of the plate's far edge (the arm end, +Y side)
 motor_world = [
     [0, quadLength + -(quadLength/2)],
     [0, 0 + -(quadLength/2)],
@@ -142,9 +143,19 @@ for (pos = motor_world) {
 // deliberately, not incidentally: an early version of this file placed the
 // camera at the same end as the battery, and rendering it revealed the two
 // would physically collide (a 850mAh pack is longer than the front zone).
-// Position/angle are still rough guesses for visualization -- VERIFY once
-// the mount and camera are in hand (see cad/MOUNTING.md).
-camera_mount([quadWidth/2, motor_world[0].y + 3, bodyDepth], -90);
-translate([quadWidth/2, motor_world[0].y + 3, bodyDepth + 15])
+//
+// It also needs to clear the frame's own edge: the first fix only pushed it
+// 3mm past the motor CENTER (still well inside the plate), and orthogonal
+// renders showed the mount overlapping both the arm and the FC stack
+// standoffs. 20mm past the edge still wasn't enough -- the mount's real
+// shape (an asymmetric clamp, not a simple box) reaches further toward the
+// frame on one side than its bounding box suggested, and a zoomed render
+// still showed contact. Pushed to 30mm clearance, which visibly separates
+// in the same zoomed check -- but this is still bounding-box-level
+// confidence, not a real test fit. VERIFY once the mount and camera are in
+// hand (see cad/MOUNTING.md).
+camera_y = frame_edge_y + 30;
+camera_mount([quadWidth/2, camera_y, bodyDepth], -90);
+translate([quadWidth/2, camera_y, bodyDepth + 15])
 rotate([20, 0, 0])
 camera_placeholder();
