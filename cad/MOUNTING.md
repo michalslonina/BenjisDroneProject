@@ -9,6 +9,11 @@ printing a "camera mount" and "battery strap" but no actual design ever existed.
 This is now fixed for FC + battery (built into the frame itself) and camera
 (dedicated bracket added). VTx rides on the FC mount — see below for why.
 
+**See the whole thing assembled:** `cad/assembly/full_assembly.scad` combines the
+real frame + camera mount STLs with placeholder geometry (motors, propellers,
+FC/PDB/VTX stack, battery, camera body) so you can see the full layout in one
+file. Open it in OpenSCAD. Rendering it is what caught a real problem below.
+
 ## Flight Controller / PDB / VTx — built into the frame
 
 The F4V3S Plus bundle is sold as a "flytower" stack: FC, PDB, and VTx are separate
@@ -77,8 +82,23 @@ cad/
 ├── body/
 │   ├── Cam_Mount_Plate.stl      — camera mount, frame-side piece
 │   └── Cam_Mount_Base.stl       — camera mount, clamp piece
+├── assembly/
+│   ├── full_assembly.scad       — everything combined, for visualizing the whole build
+│   └── assembly_preview.png     — rendered snapshot
 └── arms/                         — empty; ASCopter's arms are integral to the frame plate, not separate parts
 ```
+
+## Found while building the assembly view
+
+Putting everything in one file surfaced a real spatial conflict, not just a
+rendering bug: real 850mAh 2S batteries run 52-75mm long (checked against
+Tattu/RoaringTop/CNHL specs), but the front zone we carved the battery straps
+into is only ~27mm deep. Even the shortest realistic battery overhangs this
+frame's edge — that's normal for a build this small, but it means the battery
+and the camera mount **cannot go on the same end** of the frame, or they'll
+collide. `full_assembly.scad` now places them on opposite ends deliberately.
+Keep this in mind if you ever revisit the battery strap slot position in
+`ASCopter_tuned.scad` — it needs to stay on the end away from the camera.
 
 ## Still open
 
@@ -86,4 +106,8 @@ cad/
   the F4V3S Plus bundle arrives and you can see its actual board layout
 - Camera mount attachment method to the frame: not yet decided (see above)
 - FC mount screw size (M3 assumed, "M4" mentioned in one source): verify with calipers
-- Battery strap slot spacing: verify against actual battery footprint
+- Battery strap slot spacing: verify against actual battery footprint, and note
+  the battery will overhang the frame edge on the strap side — expected, not a defect
+- `full_assembly.scad` uses estimated placeholder dimensions for everything except
+  the frame and camera mount (which are real STLs) — swap in real models/measurements
+  as parts arrive and get measured with calipers
