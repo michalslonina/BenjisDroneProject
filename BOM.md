@@ -36,6 +36,7 @@
 | Servo Lead Extenders | 4 | 2-3 | Connect motors to FC | AliExpress | Search: "servo extension cable" |
 | **FRAME (3D Printed)** | | | | | |
 | PLA/PETG Filament | ~500g | 10-15 | ~2 spools for printing | Local | Already have? |
+| Frame: ASCopter H-Frame (remixed) | 1 | ~0 | ~6-8g printed, see [FRAME_SELECTION.md](FRAME_SELECTION.md) | This repo | `cad/frame/ASCopter_tuned.stl` |
 | | | | | | |
 | | **TOTAL** | **130-180 EUR** | *Can optimize to ~100-120 with bulk sources* | | |
 
