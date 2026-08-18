@@ -52,6 +52,10 @@ Supports: Not expected to be needed (flat plate design)
 
 Open `ASCopter_tuned.scad` in OpenSCAD (installed at `/Applications/OpenSCAD.app`). All tunable variables are at the top of the file — this is a good file for Benjamin to poke at once he's comfortable with the electronics, since changing a number and re-rendering is immediate visual feedback for learning parametric design.
 
+## Component Mounting
+
+The frame now has real cutouts for the flight controller stack (30.5×30.5mm pattern) and battery straps — see **[cad/MOUNTING.md](cad/MOUNTING.md)** for the full writeup, including the camera mount bracket we added and what's still unverified until real components are in hand.
+
 ---
 
 *Superseded content: earlier drafts of this file discussed a 5" TBS Source One frame from before the sub-250g pivot — see git history if needed. Current build target remains the sub-250g 3" build described in [SUB_250G_FPV_BUILD.md](SUB_250G_FPV_BUILD.md).*

@@ -1,0 +1,89 @@
+# Component Mounting — Frame, Camera, VTx, Battery, Flight Controller
+
+## What we checked
+
+Before this, the frame (`cad/frame/`) was a bare motor-mount plate — no dedicated
+holes or brackets existed anywhere in the project for the flight controller stack,
+camera, VTx, or battery. The docs (BOM.md, MASTER_BUILD_GUIDE.md) *mentioned*
+printing a "camera mount" and "battery strap" but no actual design ever existed.
+This is now fixed for FC + battery (built into the frame itself) and camera
+(dedicated bracket added). VTx rides on the FC mount — see below for why.
+
+## Flight Controller / PDB / VTx — built into the frame
+
+The F4V3S Plus bundle is sold as a "flytower" stack: FC, PDB, and VTx are separate
+boards that bolt together vertically on 4 standoffs, all sharing the same
+**30.5×30.5mm** hole pattern (confirmed via board specs: ~36×36mm board, 30.5mm
+mount spacing). Because they stack on common standoffs, only the *bottom* of the
+stack needs new holes cut into the frame — we don't need a separate VTx mount.
+
+`cad/frame/ASCopter_tuned.scad` now cuts:
+- A 30.5×30.5mm hole pattern (`fcMountSpacing`), centered on the plate, sized for
+  M3 screws (`fcMountHoleRadius = 1.6mm` clearance)
+- A clean flat pad around those holes (`fcPadMargin`) — the weight-saving hex grid
+  is explicitly excluded from this zone so the stack has a solid, flat seat
+  instead of resting on a fused/uneven cutout pattern
+
+**⚠️ Verify before printing:** the search result describing the 30.5mm pattern
+mentioned "M4 holes," which is unusual for this board class (M3 is standard for
+30.5mm-pattern mini stacks). Measure the actual board's screw holes with calipers
+when it arrives and adjust `fcMountHoleRadius` if needed.
+
+You'll need 4× M3 nylon standoffs (length depends on stack height — start with
+20-25mm, adjust once you have the boards in hand) to actually build the stack up
+from the frame.
+
+## Battery — strap slots built into the frame
+
+Two slots (`batteryStrapSlotWidth/Length/Spacing`) are cut into the front zone of
+the plate, between the front motor arms and the FC pad. A velcro/hook-and-loop
+strap threads up through one slot, over the battery, and down through the other.
+
+**⚠️ Verify before printing:** slot spacing (currently 14mm apart) was sized to
+fit the available space on this small plate, not measured against the actual
+850mAh 2S battery footprint. Once the battery arrives, check whether the strap
+geometry actually holds it securely — the battery may need to sit slightly
+forward of the plate's front edge, which is normal on micro builds this size.
+
+## Camera — dedicated bracket added
+
+`cad/body/Cam_Mount_Plate.stl` + `cad/body/Cam_Mount_Base.stl` — a two-piece
+"universal" FPV camera mount (originally by MultiRC, Thingiverse thing:1110726),
+clamped with a single M3 screw so it fits basically any small FPV camera,
+adjustable to any tilt angle.
+
+- Verified via STL bounding box: Plate is 21.5×31.7×13.5mm, Base is
+  19.6×12.5×8.0mm — both comfortably smaller than our frame
+- Verified weight: ~3.5g combined at 100% solid, realistically ~2-3g printed
+- The F4V3S Plus bundle's camera measures 28×26×28mm — the mount's clamp should
+  fit this, but **test-fit it before committing to final assembly**; this design
+  isn't parametric (no OpenSCAD source was published, only STL), so it can't be
+  resized in software if it doesn't fit — only filed/sanded by hand
+
+**⚠️ Not yet solved:** how this bracket physically attaches to the ASCopter frame
+(screw, zip-tie, or glue) hasn't been verified — the frame's small 4mm holes
+along the plate edges (`mountingPostHoleRadius`) are sized for zip-ties and are
+the most likely attachment point, but confirm this once both parts are in hand.
+
+## Summary of what's now in `cad/`
+
+```
+cad/
+├── frame/
+│   ├── ASCopterHframe.scad      — original upstream source
+│   ├── ASCopter_tuned.scad      — our tuned version (motor mount, FC pad, battery slots)
+│   ├── ASCopter_tuned.stl       — pre-rendered, ready to slice
+│   └── frame_preview.png        — top-down render for reference
+├── body/
+│   ├── Cam_Mount_Plate.stl      — camera mount, frame-side piece
+│   └── Cam_Mount_Base.stl       — camera mount, clamp piece
+└── arms/                         — empty; ASCopter's arms are integral to the frame plate, not separate parts
+```
+
+## Still open
+
+- VTx mount: assumed to ride on the FC stack standoffs (see above) — confirm once
+  the F4V3S Plus bundle arrives and you can see its actual board layout
+- Camera mount attachment method to the frame: not yet decided (see above)
+- FC mount screw size (M3 assumed, "M4" mentioned in one source): verify with calipers
+- Battery strap slot spacing: verify against actual battery footprint
