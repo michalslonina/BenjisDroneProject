@@ -3,7 +3,11 @@
 //Frame size parameters
 motorType = 20; // [13:Brushed 8.5, 12:Brushed 8, 18:1306, 20:1104, 23:1806, 27.5:2204, 27.85:2206, 27.9:2213, 28.5:2822]
 quadWidth = 110; // [40:200] widened from 95 so mainBodyWidth=36 clears the quadWidth/3 cap below (with margin, not razor-edge equal)
-quadLength = 70; // [40:200]
+quadLength = 90; // [40:200] FIXED from 70: that gave front-to-back (same-side) motor
+// spacing of 70mm, but 3" props are 76.2mm diameter -- the front and rear prop on the
+// same arm side OVERLAPPED by 6.2mm. This was never actually checked; only the
+// quadWidth (left-right) spacing was verified against prop diameter. 90mm gives 13.8mm
+// clearance, matching the margin quadWidth was tuned for.
 bodyDepth = 2; // [2.0:15.0]
 mainBodyWidth = 36; // [25:50] widened from 30.5 so the 30.5x30.5mm FC/PDB/VTX stack holes have wall margin either side
 

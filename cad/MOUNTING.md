@@ -26,23 +26,55 @@ Color legend: frame = gold, motors = black, propellers = translucent blue,
 PDB = firebrick red, FC = forest green, VTX = navy, standoffs = silver,
 battery = orange, camera mount = dark gray.
 
-**Fit check result:** rendering these views caught two real problems, both fixed:
+**Fit check result:** this took two rounds. The first round (below, items 1-2)
+looked thorough at the time but missed three real problems that a second,
+more careful pass caught — noted here so the same mistakes aren't repeated.
+
+**Round 2 — caught by actually eyeballing the rendered views closely, not just
+checking the specific thing I'd just changed:**
+
+3. **Propellers were genuinely colliding**, not just close — a real bug in
+   `cad/frame/ASCopter_tuned.scad` itself, not the visualization. `quadLength`
+   (70mm) was checked against the prop diameter using the wrong distance (the
+   plate's total length, not the actual motor-to-motor spacing, which IS
+   `quadLength`). Real motor spacing was 70mm against a 76.2mm prop diameter —
+   a 6.2mm overlap. Fixed by changing `quadLength` to 90mm in the real frame
+   file (see FRAME_SELECTION.md for the corrected table) and re-rendering the
+   actual printable STL, not just the assembly view.
+4. **The camera looked disconnected from its mount** — the camera placeholder
+   cube was positioned at a Z height picked to "look about right" rather than
+   computed from the mount's actual stacked height, so it partially overlapped
+   the mount body instead of resting on top of it. Fixed by computing
+   `cam_mount_top_z` from the mount's real measured part heights and placing
+   the camera's pivot exactly on that surface (`camera_assembly()` in
+   `full_assembly.scad`), then verifying contact with a tight zoomed render.
+5. **The battery collided with the FC/PDB/VTX stack** — 16.25mm of overlap.
+   The battery placeholder had been centered on the real frame's strap-slot
+   position (`batteryZoneCenterY`, a small feature meant for a thin strap, not
+   the battery's own center), without checking the battery box's full 60mm
+   length against the FC pad boundary. Fixed by computing the battery's center
+   directly from the FC pad's edge plus a clearance gap, instead of reusing
+   the strap-slot coordinate.
+
+**Round 1 — the two things checked before this round, both fine on
+re-verification:**
 
 1. The camera mount's first two placements (3mm past the motor center, then
    20mm past the frame edge) both still overlapped the arm and/or the FC stack
    standoffs — visible directly in the top and side renders as overlapping
    geometry. The mount's actual shape (an asymmetric clamp) reaches further
    toward the frame than its bounding box suggested. Fixed by pushing it 30mm
-   past the frame edge, re-rendering, and zooming into the contact point in
-   OpenSCAD until a visible gap confirmed clearance.
+   past the frame edge (this distance held up in round 2 as well).
 2. A low-res top-view thumbnail made the camera mount look like it was
    overlapping the propeller disc — checked with the actual numbers (mount
    footprint vs. prop swept radius) and a zoomed re-render: there's ~10-30mm
-   of real clearance. False alarm, but worth checking numerically rather than
-   trusting a small preview image.
+   of real clearance. Still holds after the quadLength fix.
 
-Everything else (battery vs. FC stack, battery vs. motors, stack vs. frame)
-had comfortable clearance on the first pass.
+**Takeaway:** verifying "the thing I just changed" isn't the same as verifying
+the whole assembly. Round 1 confirmed the camera mount didn't hit the frame or
+the propellers, but never checked propeller-vs-propeller, camera-vs-mount
+attachment, or battery-vs-stack — three different pairs of parts nobody had
+looked at together yet.
 
 ## Flight Controller / PDB / VTx — built into the frame
 

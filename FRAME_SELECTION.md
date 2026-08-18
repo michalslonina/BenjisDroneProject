@@ -21,17 +21,23 @@ We evaluated 5 candidate OpenSCAD designs (Kestrel, kaefert's 250, FNQ220, mjhol
 
 ## Verified Tuning
 
-We didn't just eyeball this — we rendered it in OpenSCAD and computed the numbers:
+Current values (this table has been corrected twice since the frame was first tuned — see the propeller collision note below for why):
 
 | Parameter | Original default | Tuned value | Why |
 |---|---|---|---|
 | `motorType` | 13 (brushed) | **20** (1104 preset) | Closest match to our 1103 8000KV motors |
-| `quadWidth` | 65mm | **95mm** | Gives 18.8mm prop-tip clearance for 3" (76.2mm) props |
-| `quadLength` | 65mm | **70mm** | Gives 13.8mm prop-tip clearance on the sides |
-| `mainBodyWidth` | 25mm | **30.5mm** | Matches F4V3S Plus flight controller mounting pattern |
+| `quadWidth` | 65mm | **110mm** | Left-right motor spacing; gives 33.8mm prop-tip clearance for 3" (76.2mm) props, widened later to fit the FC mounting pad (below) |
+| `quadLength` | 65mm | **90mm** | Front-to-back (same-side) motor spacing; gives 13.8mm prop-tip clearance — see correction below |
+| `mainBodyWidth` | 25mm | **36mm** | Matches F4V3S Plus flight controller mounting pattern with wall margin either side |
 | `bodyDepth` | 2mm | 2mm (unchanged) | Thin plate keeps weight minimal |
 
-**Verified weight:** Computed actual solid volume from the rendered STL (9.3 cm³) → **~11.8g at 100% solid PETG**, realistically **~6-8g printed** with normal wall count + infill. That's dramatically lighter than the GoFlyPro 3" frame estimate (38g) we'd budgeted for earlier — this buys back real weight margin against the 250g limit.
+**Verified weight:** Computed actual solid volume from the rendered STL → **~15.6g at 100% solid PETG**, realistically **~8-11g printed** with normal wall count + infill. That's dramatically lighter than the GoFlyPro 3" frame estimate (38g) we'd budgeted for earlier — this buys back real weight margin against the 250g limit.
+
+### ⚠️ Corrected: propellers were overlapping (found via the assembly view)
+
+`quadLength` was originally set to 70mm using the wrong math: I checked `quadWidth` (left-right motor spacing) against the propeller diameter correctly, but for `quadLength` I checked the frame's *total plate length* (90mm, including the rounded end caps) against the propeller diameter instead of the actual *motor-to-motor spacing*, which is `quadLength` itself (70mm) — 6.2mm short of the 76.2mm prop diameter. The front and rear propeller on each arm would have physically overlapped.
+
+This wasn't caught until building `cad/assembly/full_assembly.scad` (see `cad/MOUNTING.md`) and looking at the top-down view with propeller placeholders included — the two circles visibly overlapped. Fixed by changing `quadLength` to 90mm, matching the margin `quadWidth` already had. **Lesson: check every motor-pair distance against the prop diameter, not just one axis, and check motor-to-motor distance specifically, not the plate's outer dimensions.**
 
 ## ⚠️ One thing to verify when motors arrive
 
